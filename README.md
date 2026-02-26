@@ -11,7 +11,7 @@ This project deploys a containerized app on **Amazon ECS Fargate** behind an **A
 
 ## Module Breakdown
 
-### 1) `modules/vpc`
+### 1) `modules/networking`
 Creates network primitives:
 - VPC with DNS support
 - Internet Gateway
@@ -31,7 +31,7 @@ Outputs:
 - `public_subnets`
 - `private_subnets`
 
-### 2) `modules/iam`
+### 2) `modules/identity`
 Creates IAM for ECS task execution:
 - `ecsTaskExecutionRole`
 - Attaches managed policy `AmazonECSTaskExecutionRolePolicy`
@@ -39,7 +39,7 @@ Creates IAM for ECS task execution:
 Output:
 - `ecs_task_execution_role_arn`
 
-### 3) `modules/alb`
+### 3) `modules/load-balancer`
 Creates the external load balancer layer:
 - ALB security group (ingress `80` from internet)
 - Application Load Balancer in public subnets
@@ -56,7 +56,7 @@ Outputs:
 - `alb_dns`
 - `alb_security_group_id`
 
-### 4) `modules/ecs`
+### 4) `modules/container-service`
 Creates compute and service resources:
 - ECS cluster
 - CloudWatch log group for ECS logs (`/ecs/<cluster_name>`)
@@ -84,7 +84,7 @@ Outputs:
 - `ecs_service_name`
 - `ecs_cluster_name`
 
-### 5) `modules/cloudwatch` (currently not wired from root)
+### 5) `modules/monitoring` (currently not wired from root)
 Contains a standalone CloudWatch log group resource:
 - Log group `/ecs/fargate-app`
 
